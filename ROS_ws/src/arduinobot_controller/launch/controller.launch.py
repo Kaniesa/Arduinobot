@@ -7,7 +7,6 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-    controllers_file = PathJoinSubstitution([get_package_share_directory("arduinobot_controller"), "config", "arduinobot_controllers.yaml"])
     robot_description = ParameterValue(
         Command(
             [
@@ -16,13 +15,6 @@ def generate_launch_description():
             ]
         ),
         value_type=str
-    )
-
-    control_node = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        parameters = [controllers_file],
-        output='screen'
     )
 
     robot_state_publisher = Node(
@@ -46,8 +38,8 @@ def generate_launch_description():
         executable="spawner",
         arguments=[
             "arm_controller",
-            "--param-file",
-            controllers_file,
+            "--controller-manager",
+            "/controller_manager",
         ]
     )
 
@@ -62,7 +54,6 @@ def generate_launch_description():
     # )
 
     return LaunchDescription([
-        control_node,
         robot_state_publisher,
         joint_state_broadcaster_spawner,
         arm_controller_spawner

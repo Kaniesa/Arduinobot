@@ -25,10 +25,10 @@ arm_controller:
       - joint_2
       - joint_3
 
-    command_interface:
+    command_interfaces:
       - position
 
-    state_interface:
+    state_interfaces:
       - position
 
     open_loop_control: true
@@ -39,10 +39,10 @@ arm_controller:
 #     joints:
 #       - joint_4
 
-#     command_interface:
+#     command_interfaces:
 #       - position
 
-#     state_interface:
+#     state_interfaces:
 #       - position
 
 #     open_loop_control: true
