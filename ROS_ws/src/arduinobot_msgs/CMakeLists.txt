@@ -8,12 +8,12 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
+find_package(rosidl_default_generators REQUIRED) #in charge of compiling srv
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
+rosidl_generate_interfaces(${PROJECT_NAME} #generate interface for arduinobot_msgs
   "srv/AddTwoInts.srv"
 )
 
