@@ -12,11 +12,11 @@ def generate_launch_description():
 
     model_arg = DeclareLaunchArgument(
         name="model",
-        default_value=os.path.join(get_package_share_directory("arduinobot_description"), "urdf", "arduinobot.urdf.xacro"),
+        default_value=os.path.join(get_package_share_directory("arduinobot_braccio_description"), "urdf", "braccio.urdf.xacro"),
         description="Absolute path to the robot URDF file"
     )
 
-    env_var = SetEnvironmentVariable("GAZEBO_MODEL_PATH", os.path.join(get_package_prefix("arduinobot_description"), "share"))
+    env_var = SetEnvironmentVariable("GAZEBO_MODEL_PATH", os.path.join(get_package_prefix("arduinobot_braccio_description"), "share"))
 
     robot_description = ParameterValue(Command(["xacro ", LaunchConfiguration("model")]))
 

@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="arduinobot">
+
+  <!-- <xacro:include filename="$(find arduinobot_braccio_description)/urdf/arduinobot_gazebo.xacro"/>
+  <xacro:include filename="$(find arduinobot_braccio_description)/urdf/braccio_ros2_control.xacro"/> -->
+
+  <xacro:property name="PI" value="3.14159"/>
+  <xacro:property name="effort" value="30.0"/>
+  <xacro:property name="velocity" value="10.0"/>
+
+  <xacro:macro name="default_inertial" params="mass">
+      <inertial>
+          <mass value="${mass}"/>
+          <inertia    ixx="1.0" ixy="0.0" ixz="0.0"
+                      iyy="1.0" iyz="0.0"
+                      izz="1.0"/>
+      </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="default_transmission" params="name">
+      <transmission name="transmission_${name}">
+          <plugin>
+              transmission_interface/SimpleTransmission
+          </plugin>
+          <actuator name="motor_${name}" role="actuator1"/>
+          <joint name="joint_${name}" role="joint1">
+              <mechanical_reduction>
+                  1.0
+              </mechanical_reduction>
+          </joint>
+      </transmission>
+  </xacro:macro>
+
+  <material name="gray">
+    <color rgba="0.3 0.3 0.3 1"/>
+  </material>
+  <material name="orange">
+    <color rgba="0.8 0.084 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="0.8 0.8 0.8 1"/>
+  </material>
+    
+  <link name="world"/> 
+
+  <link name="base_link">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <box size="0.15 0.15 .05"/>
+      </geometry>
+      <material name="gray"/> 
+      <origin rpy="0 0 0" xyz="0 0 -0.025"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.15 0.15 .05"/>
+      </geometry>
+      <material name="gray"/> 
+      <origin rpy="0 0 0" xyz="0 0 -0.025"/>
+    </collision>
+  </link>
+
+  <link name="link1">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/base.stl"/>
+      </geometry>
+      <material name="orange"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/base.stl"/>
+      </geometry>
+      <material name="orange"/> 
+    </collision>
+  </link>
+
+  <link name="link2">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/shoulder.stl"/>
+      </geometry>
+      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.0505"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/shoulder.stl"/>
+      </geometry>
+      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.0505"/> 
+    </collision>
+  </link>
+
+  <link name="link3">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/elbow.stl"/>
+      </geometry>
+      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.1705"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/elbow.stl"/>
+      </geometry>
+      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.1705"/> 
+    </collision>
+  </link>
+
+  <link name="link4">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/wrist_pitch.stl"/>
+      </geometry>
+      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.2905"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/wrist_pitch.stl"/>
+      </geometry>
+      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.2905"/> 
+    </collision>
+  </link>
+  
+  <link name="link5">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/wrist_roll.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.3505"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/wrist_roll.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.3505"/> 
+    </collision>
+  </link>
+
+  <link name="gripper_base">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/gripper_base.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.357"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/gripper_base.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.357"/> 
+    </collision>
+  </link>
+
+  <link name="gripper_fix">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/gripper_fix.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.36399"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/gripper_fix.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="0 0 -0.36399"/> 
+    </collision>
+  </link>
+
+  <link name="gripper_movable_link">
+    <xacro:default_inertial mass="1.0"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/gripper_movable_link.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="-0.01559 0 -0.36399"/> 
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arduinobot_braccio_description/meshes/gripper_movable_link.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="-0.01559 0 -0.36399"/> 
+    </collision>
+  </link>
+
+  <joint name="worldBaseJoint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <joint name="base" type="revolute">
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="3.141592653589793" velocity="4.0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="link1"/>
+  </joint>
+
+  <joint name="shoulder" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="0.2617993877991494" upper="2.8797932657906435" velocity="4.0"/>
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0.0505"/>   
+    <parent link="link1"/>
+    <child link="link2"/>
+  </joint>
+
+   <joint name="elbow" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="0" upper="3.141592653589793" velocity="4.0"/>
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0.1205"/>
+    <parent link="link2"/>
+    <child link="link3"/>
+  </joint>
+
+  <joint name="wrist_pitch" type="revolute">
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="0" upper="3.141592653589793" velocity="4.0"/>
+    <origin rpy="-1.5707963267948966 0 0" xyz="0 0 0.1205"/>
+    <parent link="link3"/>
+    <child link="link4"/>
+  </joint>
+
+  <joint name="wrist_roll" type="revolute">
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="3.141592653589793" velocity="4.0"/>
+    <origin rpy="0 0 0" xyz="0 0.0 0.06"/>
+    <parent link="link4"/>
+    <child link="link5"/>
+  </joint>
+
+  <joint name="gripper_base" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.0 0.0065"/>
+    <parent link="link5"/>
+    <child link="gripper_base"/>
+  </joint>
+
+  <joint name="gripper_fix" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.0 0.007"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_fix"/>
+  </joint>
+
+  <joint name="gripper_movable" type="revolute">
+    <axis xyz="0 -1 0"/>
+    <limit effort="1000.0" lower="0.17453292519943295" upper="1.2740903539558606" velocity="4.0"/>
+    <origin rpy="0 0 0" xyz="0.01559 0 0.007"/>
+    <parent link="gripper_base"/>
+    <child link="gripper_movable_link"/>
+  </joint>
+
+  <xacro:default_transmission name="base"/>
+  <xacro:default_transmission name="shoulder"/>
+  <xacro:default_transmission name="elbow"/>
+  <xacro:default_transmission name="wrist_pitch"/>
+  <xacro:default_transmission name="wrist_roll"/>
+  <xacro:default_transmission name="gripper_movable"/>
+
+  
+</robot>

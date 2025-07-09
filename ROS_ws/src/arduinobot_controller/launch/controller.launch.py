@@ -11,7 +11,7 @@ def generate_launch_description():
         Command(
             [
                 "xacro ",
-                os.path.join(get_package_share_directory("arduinobot_description"), "urdf", "arduinobot.urdf.xacro")
+                os.path.join(get_package_share_directory("arduinobot_braccio_description"), "urdf", "braccio.urdf.xacro")
             ]
         ),
         value_type=str
