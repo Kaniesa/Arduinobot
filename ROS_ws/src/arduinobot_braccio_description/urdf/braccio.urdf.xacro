@@ -2,8 +2,8 @@
 
 <robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="arduinobot">
 
-  <!-- <xacro:include filename="$(find arduinobot_braccio_description)/urdf/arduinobot_gazebo.xacro"/>
-  <xacro:include filename="$(find arduinobot_braccio_description)/urdf/braccio_ros2_control.xacro"/> -->
+  <!-- <xacro:include filename="$(find arduinobot_braccio_description)/urdf/arduinobot_gazebo.xacro"/> -->
+  <xacro:include filename="$(find arduinobot_braccio_description)/urdf/braccio_ros2_control.xacro"/>
 
   <xacro:property name="PI" value="3.14159"/>
   <xacro:property name="effort" value="30.0"/>
