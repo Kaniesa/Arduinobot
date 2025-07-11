@@ -11,8 +11,8 @@ moveit_simple_controller_manager:
     default: True
     joints:
       - base
-      - elbow
       - shoulder
+      - elbow
       - wrist_pitch
       - wrist_roll
 

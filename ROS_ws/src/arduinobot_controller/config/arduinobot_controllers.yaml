@@ -6,13 +6,8 @@ controller_manager:
     arm_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    #NOTE: gripper design is not designed to be seperate (for right now)
-    # gripper_controller:
-    #   type: joint_trajectory_controller/JointTrajectoryController
-
     gripper_controller:
-      type: forward_command_controller/ForwardCommandController
-
+      type: joint_trajectory_controller/JointTrajectoryController
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster 

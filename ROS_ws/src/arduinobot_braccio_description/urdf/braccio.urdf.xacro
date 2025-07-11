@@ -2,7 +2,7 @@
 
 <robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="arduinobot">
 
-  <!-- <xacro:include filename="$(find arduinobot_braccio_description)/urdf/arduinobot_gazebo.xacro"/> -->
+  <xacro:include filename="$(find arduinobot_braccio_description)/urdf/arduinobot_gazebo.xacro"/>
   <xacro:include filename="$(find arduinobot_braccio_description)/urdf/braccio_ros2_control.xacro"/>
 
   <xacro:property name="PI" value="3.14159"/>
@@ -24,7 +24,7 @@
               transmission_interface/SimpleTransmission
           </plugin>
           <actuator name="motor_${name}" role="actuator1"/>
-          <joint name="joint_${name}" role="joint1">
+          <joint name="${name}" role="joint1">
               <mechanical_reduction>
                   1.0
               </mechanical_reduction>
@@ -43,24 +43,6 @@
   </material>
     
   <link name="world"/> 
-
-  <link name="base_link">
-    <xacro:default_inertial mass="1.0"/>
-    <visual>
-      <geometry>
-        <box size="0.15 0.15 .05"/>
-      </geometry>
-      <material name="gray"/> 
-      <origin rpy="0 0 0" xyz="0 0 -0.025"/>
-    </visual>
-    <collision>
-      <geometry>
-        <box size="0.15 0.15 .05"/>
-      </geometry>
-      <material name="gray"/> 
-      <origin rpy="0 0 0" xyz="0 0 -0.025"/>
-    </collision>
-  </link>
 
   <link name="link1">
     <xacro:default_inertial mass="1.0"/>
@@ -204,18 +186,11 @@
     </collision>
   </link>
 
-  <joint name="worldBaseJoint" type="fixed">
-    <axis xyz="0 0 0"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="world"/>
-    <child link="base_link"/>
-  </joint>
-
   <joint name="base" type="revolute">
     <axis xyz="0 0 -1"/>
     <limit effort="1000.0" lower="0.0" upper="3.141592653589793" velocity="4.0"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="base_link"/>
+    <parent link="world"/>
     <child link="link1"/>
   </joint>
 

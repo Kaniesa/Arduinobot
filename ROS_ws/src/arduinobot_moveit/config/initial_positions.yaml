@@ -1,5 +1,7 @@
 initial_position:
-  joint_1: 0
-  joint_2: 0
-  joint_3: 0
-  joint_4: 0
+  base: 0.0
+  shoulder: 0.5
+  elbow: 1.579
+  wrist_pitch: 1.579
+  wrist_roll: 0
+  gripper_movable: 0.724

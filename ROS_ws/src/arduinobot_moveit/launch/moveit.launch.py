@@ -1,12 +1,13 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArguement
+from launch_ros.actions import Node
+from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from moveit_configs_utils import MoveItConfigsBuilder
 import os
 from ament_index_python.packages import get_package_share_directory
 
-def generateLaunchDescription():
-    is_sim_arg = DeclareLaunchArguement(
+def generate_launch_description():
+    is_sim_arg = DeclareLaunchArgument(
         "is_sim",
         default_value="True"
     )
@@ -15,7 +16,7 @@ def generateLaunchDescription():
 
     moveit_config = (
         MoveItConfigsBuilder("arduinobot", package_name="arduinobot_moveit")
-        .robot_description(file_path=os.path.join(get_package_share_directory("arduinbot_braccio_description"), "urdf", "braccio.urdf.xacro"))
+        .robot_description(file_path=os.path.join(get_package_share_directory("arduinobot_braccio_description"), "urdf", "braccio.urdf.xacro"))
         .robot_description_semantic(file_path="config/arduinobot.srdf")
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
         .to_moveit_configs()
@@ -43,7 +44,7 @@ def generateLaunchDescription():
         arguments=["-d", rviz_config],
         parameters=[moveit_config.robot_description,
                     moveit_config.robot_description_semantic,
-                    moveit_config.robot_description_kinematic,
+                    moveit_config.robot_description_kinematics,
                     moveit_config.joint_limits]
     )
     
