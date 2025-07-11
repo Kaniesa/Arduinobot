@@ -1,7 +1,10 @@
 initial_position:
   base: 0.0
-  shoulder: 0.5
-  elbow: 1.579
-  wrist_pitch: 1.579
-  wrist_roll: 0
-  gripper_movable: 0.724
+  shoulder: 1.5708
+  elbow: 1.5708
+  wrist_pitch: 1.5708
+  wrist_roll: 1.5708
+  gripper_movable: 0.7
+
+# NOTE: These value don't affect code
+  # (commenting entire file out changes nothing when running so far)
