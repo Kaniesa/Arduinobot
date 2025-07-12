@@ -15,7 +15,8 @@
 
     <group name="gripper">
 
-        <joint name="gripper_movable"/>
+        <joint name="gripper_joint"/>
+        <joint name="gripper_sub_joint"/>
 
     </group>
 
@@ -28,16 +29,17 @@
     </group_state>
 
     <group_state name="home" group="gripper">
-        <joint name="gripper_movable" value="0.7"/>
+        <joint name="gripper_joint" value="0.7"/>
+        <joint name="gripper_sub_joint" value = "0.7"/>
     </group_state>
 
-    <disable_collision link1="base_link" link2="link1" reason="adjacent"/>
-    <disable_collision link1="link1" link2="link2" reason="adjacent"/>
-    <disable_collision link1="link2" link2="link3" reason="adjacent"/>
-    <disable_collision link1="link3" link2="link4" reason="adjacent"/>
-    <disable_collision link1="link4" link2="link5" reason="adjacent"/>
-    <disable_collision link1="link5" link2="gripper_base" reason="adjacent"/>
-    <disable_collision link1="gripper_base" link2="gripper_fix" reason="adjacent"/>
-    <disable_collision link1="gripper_base" link2="gripper_movable_link" reason="adjacent"/>
+    <disable_collisions link1="base_link" link2="link1" reason="adjacent"/>
+    <disable_collisions link1="link1" link2="link2" reason="adjacent"/>
+    <disable_collisions link1="link2" link2="link3" reason="adjacent"/>
+    <disable_collisions link1="link3" link2="link4" reason="adjacent"/>
+    <disable_collisions link1="link4" link2="link5" reason="adjacent"/>
+    <disable_collisions link1="link5" link2="gripper_right" reason="adjacent"/>
+    <disable_collisions link1="link5" link2="gripper_left" reason="adjacent"/>
+    <disable_collisions link1="gripper_right" link2="gripper_left" reason="adjacent"/>
     
 </robot>

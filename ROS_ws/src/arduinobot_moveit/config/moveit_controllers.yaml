@@ -21,4 +21,5 @@ moveit_simple_controller_manager:
     type: FollowJointTrajectory
     default: True
     joints:
-      - gripper_movable
+      - gripper_joint
+      - gripper_sub_joint
