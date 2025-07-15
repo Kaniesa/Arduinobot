@@ -18,6 +18,7 @@ rosidl_generate_interfaces(${PROJECT_NAME} #generate interface for arduinobot_ms
   "srv/EulerToQuaternion.srv"
   "srv/QuaternionToEuler.srv"
   "action/Fibonacci.action"
+  "action/ArduinobotTask.action"
 )
 
 if(BUILD_TESTING)
