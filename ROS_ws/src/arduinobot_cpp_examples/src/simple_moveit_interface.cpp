@@ -15,11 +15,23 @@ void move_robot(const std::shared_ptr<rclcpp::Node> node ){
     bool arm_within_bounds = arm_move_group.setJointValueTarget( arm_joint_goal );
     bool gripper_within_bounds = gripper_move_group.setJointValueTarget( gripper_joint_goal );
 
-    if( !arm_within_bounds | !gripper_within_bounds ){
+    if( !arm_within_bounds ){
 
-        RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Target joint position were outside the limits");
+        RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Arm target joint position were outside the limits");
+
+            if( !gripper_within_bounds ){
+                RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Gripper target joint position were ALSO outside the limits");
+            }
+
         return;
     }
+
+    if( !gripper_within_bounds ){
+
+        RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "Gripper target joint position were outside the limits");
+        return;
+    }
+
 
     moveit::planning_interface::MoveGroupInterface::Plan arm_plan;
     moveit::planning_interface::MoveGroupInterface::Plan gripper_plan;

@@ -1,4 +1,5 @@
 # Ignore Colcon Build Folders
-ROS_ws/build
-ROS_ws/log
-ROS_ws/install
+**/build
+**/log
+**/install
+.vscode

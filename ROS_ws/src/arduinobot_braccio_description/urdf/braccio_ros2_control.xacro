@@ -6,9 +6,26 @@
 
     <ros2_control name="RobotSystem" type="system">
 
-        <hardware>
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </hardware>
+        <xacro:if value="${arg is_sim}">
+            <hardware>
+                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            </hardware>
+
+            <joint name="gripper_sub_joint">
+                <param name="mimic">gripper_joint</param>
+                <param name="multiplier">1</param>
+                <state_interface name="position">
+                    <param name="initial_value">0.724</param>
+                </state_interface>
+            </joint>
+        </xacro:if>
+
+        <xacro:unless value="${arg is_sim}">
+            <hardware>
+                <plugin>arduinobot_controller/ArduinobotInterface</plugin>
+                <param name="port">/dev/ttyACM0</param>
+            </hardware>
+        </xacro:unless>
 
         <joint name="base">
             <command_interface name="position">
@@ -65,14 +82,6 @@
                 <param name="min">0.17453292519943295</param>
                 <param name="max">1.2740903539558606</param>
             </command_interface>
-            <state_interface name="position">
-                <param name="initial_value">0.724</param>
-            </state_interface>
-        </joint>
-
-        <joint name="gripper_sub_joint">
-            <param name="mimic">gripper_joint</param>
-            <param name="multiplier">1</param>
             <state_interface name="position">
                 <param name="initial_value">0.724</param>
             </state_interface>
