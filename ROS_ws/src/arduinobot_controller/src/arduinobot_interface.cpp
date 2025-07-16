@@ -78,9 +78,9 @@ namespace arduinobot_controller{
     CallbackReturn ArduinobotInterface::on_activate(const rclcpp_lifecycle::State & previous_state){
 
         RCLCPP_INFO(rclcpp::get_logger("ArduinobotInterface"), "Starting the robot hardware...");
-        position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-        prev_position_commands_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-        position_states_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        position_commands_ = {1.5708, 1.5708/2, 1.5708*2, 1.5708*2, 1.5708, 0.7/4};
+        prev_position_commands_ = {1.5708, 1.5708/2, 1.5708*2, 1.5708*2, 1.5708, 0.7/4};
+        position_states_ = {1.5708, 1.5708/2, 1.5708*2, 1.5708*2, 1.5708, 0.7/4};
 
         try{
 
@@ -133,28 +133,28 @@ namespace arduinobot_controller{
         }
 
         std::string msg;
-        int base = static_cast<int>(((position_commands_.at(0) + (M_PI/2)) * 180) / M_PI) ;
+        int base = static_cast<int>(180.0 * (position_commands_.at(0)) / M_PI) ;
         msg.append("b");
         msg.append( std::to_string(base) );
         msg.append(",");
-        int shoulder = 180 - static_cast<int>(((position_commands_.at(1) + (M_PI/2)) * 180) / M_PI) ;
+        int shoulder = static_cast<int>(180.0 * (position_commands_.at(1)) / M_PI) ;
         msg.append("s");
         msg.append( std::to_string(shoulder) );
         msg.append(",");
 
-        int elbow = static_cast<int>(((position_commands_.at(2) + (M_PI/2)) * 180) / M_PI) ;
+        int elbow = static_cast<int>(180.0 * (position_commands_.at(2)) / M_PI) ;
         msg.append("e");
         msg.append( std::to_string(elbow) );
         msg.append(",");
-        int wristpitch = static_cast<int>(((position_commands_.at(3) + (M_PI/2)) * 180) / M_PI) ;
+        int wristpitch = static_cast<int>(180.0 * (position_commands_.at(3)) / M_PI) ;
         msg.append("p");
         msg.append( std::to_string(wristpitch) );
         msg.append(",");
-        int wristroll = static_cast<int>(((position_commands_.at(4) + (M_PI/2)) * 180) / M_PI) ;
+        int wristroll = static_cast<int>(180.0 * (position_commands_.at(4) ) / M_PI) ;
         msg.append("r");
         msg.append( std::to_string(wristroll) );
         msg.append(",");
-        int gripper = static_cast<int>(((position_commands_.at(5) + (M_PI/2)) * 180) / M_PI) ;
+        int gripper = static_cast<int>(180.0 * (position_commands_.at(5) ) / M_PI) ;
         msg.append("g");
         msg.append( std::to_string(gripper) );
         msg.append(",");

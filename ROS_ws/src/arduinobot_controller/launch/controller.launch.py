@@ -21,7 +21,7 @@ def generate_launch_description():
         Command(
             [
                 "xacro ",
-                os.path.join(get_package_share_directory("arduinobot_braccio_description"), "urdf", "braccio.urdf.xacro")#,
+                os.path.join(get_package_share_directory("arduinobot_braccio_description"), "urdf", "braccio.urdf.xacro"),
                 " is_sim:=False"
             ]
         ),
@@ -40,7 +40,7 @@ def generate_launch_description():
         executable="ros2_control_node",
         parameters=[
             {"robot_description": robot_description,
-             "use_sim_time": is_sim}
+             "use_sim_time": is_sim},
             os.path.join(
                 get_package_share_directory("arduinobot_controller"),
                 "config",

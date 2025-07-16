@@ -6,7 +6,7 @@
 
     <ros2_control name="RobotSystem" type="system">
 
-        <xacro:if value="${arg is_sim}">
+        <xacro:if value="$(arg is_sim)">
             <hardware>
                 <plugin>gazebo_ros2_control/GazeboSystem</plugin>
             </hardware>
@@ -20,7 +20,7 @@
             </joint>
         </xacro:if>
 
-        <xacro:unless value="${arg is_sim}">
+        <xacro:unless value="$(arg is_sim)">
             <hardware>
                 <plugin>arduinobot_controller/ArduinobotInterface</plugin>
                 <param name="port">/dev/ttyACM0</param>
